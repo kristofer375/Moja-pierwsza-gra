@@ -10,6 +10,8 @@ namespace Moja_pierwsza_gra
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("apka");
+            Console.ReadLine();
         }
     }
 }
