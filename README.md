@@ -15,3 +15,6 @@ Pętle
 
 **Lekcja 4**
 Klasa i objekty
+
+**Lekcja 5**
+Lista obiektów i pętla

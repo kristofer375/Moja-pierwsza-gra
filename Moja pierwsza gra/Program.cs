@@ -9,13 +9,23 @@ namespace Moja_pierwsza_gra
     class Program
     {
         private static Bohater _bohater;
+        private static List<Bron> _bronie;
         static void Main(string[] args)
         {
             //int liczba = dajwieksza(5, 7);
             //petlafor();
             //console.writeline(liczba);
+            StworzBron();
             ObsługaMenu();
-            Console.ReadLine();
+        }
+        static void StworzBron()
+        {
+            _bronie = new List<Bron>();
+            Bron bron = new Bron("Kij", 3, 4);
+            _bronie.Add(bron);
+
+            _bronie.Add(new Bron("Kamień", 1, 2));
+            _bronie.Add(new Bron("Błogosławieństwo", 0, 999));
         }
 
         static void ObsługaMenu()
@@ -52,7 +62,7 @@ namespace Moja_pierwsza_gra
                 else if (opcja == "3")
                     Console.WriteLine("Chwilowo niedostępne");
                 else if (opcja == "4")
-                    Console.WriteLine("Chwilowo niedostępne");
+                    Sklep();
                 _bohater.Przegrana();
                 Console.WriteLine();
                 Console.Write("Naciśnij enter");
@@ -117,7 +127,26 @@ namespace Moja_pierwsza_gra
         }
         static void BonusZaZwyciestwo()
         {
+            Random losuj = new Random();
+            int temp = losuj.Next(0, 2);
+            _bohater.Sakwa += temp;
+            Console.WriteLine("Zdobyto " + temp + " złota");
+        }
+        static void Sklep()
+        {
+            Console.Clear();
+            int licznik = 1;
+            foreach(Bron bron in _bronie)
+            {
+                Console.WriteLine(licznik + " " + bron.Nazwa);
+                licznik++;
+            }
+            Console.Write("Wybierz bron: ");
+            string odczyt = Console.ReadLine();
+            int opcja = int.Parse(odczyt);
 
+            Bron wybranaBron = _bronie[opcja - 1];
+            _bohater.KupBron(wybranaBron);
         }
         
         static void PetlaFor()
