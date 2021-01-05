@@ -15,7 +15,9 @@ namespace Moja_pierwsza_gra
         public int Level { get; set; }
         public int PunktyDoswiadczenia { get; set; }
         public int Sakwa { get; set; }
-        public Bron NoszonaBron { get; private set; }
+        public IBron NoszonaBron { get; private set; }
+        public Napiersnik NoszonyNapiersnik { get; set; }
+        public Tarcza NoszonaTarcza { get; set; }
 
         public Bohater(string imie)
         {
@@ -26,6 +28,7 @@ namespace Moja_pierwsza_gra
             PunktyDoswiadczenia = 0;
             Sakwa = 10;
             NoszonaBron = new Bron("Pięść", 0, 1);
+
 
         }
         public void Przegrana()
@@ -44,6 +47,10 @@ namespace Moja_pierwsza_gra
             Console.WriteLine("Zawartość Sakwy: " + Sakwa);
             if(NoszonaBron != null)
                 Console.WriteLine("Broń: " + NoszonaBron.Nazwa);
+            if(NoszonaTarcza != null)
+                Console.WriteLine("Tarcza: " + NoszonaTarcza.Nazwa);
+            if (NoszonyNapiersnik != null)
+                Console.WriteLine("Napierśnik: " + NoszonyNapiersnik.Nazwa);
         }
         public void Odpocznij()
         {
@@ -52,7 +59,7 @@ namespace Moja_pierwsza_gra
             if (MaksymalneZycie < PosiadaneZycie)
                 PosiadaneZycie = MaksymalneZycie;
         }
-        public void KupBron(Bron bron)
+        public void KupBron(IBron bron)
         {
             if (bron.Cena <= Sakwa)
             {

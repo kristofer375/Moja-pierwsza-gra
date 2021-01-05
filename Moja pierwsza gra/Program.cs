@@ -9,23 +9,26 @@ namespace Moja_pierwsza_gra
     class Program
     {
         private static Bohater _bohater;
-        private static List<Bron> _bronie;
+        private static List<IBron> _bronie;
+        private static List<Zbroja> _zbroje;
         static void Main(string[] args)
         {
-            //int liczba = dajwieksza(5, 7);
-            //petlafor();
-            //console.writeline(liczba);
             StworzBron();
             ObsługaMenu();
         }
         static void StworzBron()
         {
-            _bronie = new List<Bron>();
+            _bronie = new List<IBron>();
+            _zbroje = new List<Zbroja>();
             Bron bron = new Bron("Kij", 3, 4);
             _bronie.Add(bron);
 
             _bronie.Add(new Bron("Kamień", 1, 2));
             _bronie.Add(new Bron("Błogosławieństwo", 0, 999));
+            _bronie.Add(new BronDwureczna("Szpony", 4, 3));
+
+            _zbroje.Add(new Tarcza { Nazwa = "Tarcza Duranda", Obrona = 10, PoziomZuzycia = 0 });
+            _zbroje.Add(new Napiersnik { Nazwa = "Kolczuga", Obrona = 20, PoziomZuzycia = 0 });
         }
 
         static void ObsługaMenu()
@@ -116,7 +119,8 @@ namespace Moja_pierwsza_gra
 
             while (_bohater.PosiadaneZycie > 0)
             {
-                int obrazeniaZadane = losuj.Next(2, 3);
+                int obrazenia = _bohater.NoszonaBron.ObliczObrazenia();
+                int obrazeniaZadane = losuj.Next(obrazenia - 1, obrazenia + 1);
                 zyciePrzeciwnika -= obrazeniaZadane;
                 if (zyciePrzeciwnika <= 0)
                     return true;
@@ -136,27 +140,39 @@ namespace Moja_pierwsza_gra
         {
             Console.Clear();
             int licznik = 1;
-            foreach(Bron bron in _bronie)
+            foreach(IBron bron in _bronie)
             {
                 Console.WriteLine(licznik + " " + bron.Nazwa);
+                licznik++;
+            }
+            foreach (Zbroja zbroja in _zbroje)
+            {
+                Console.WriteLine(licznik + " " + zbroja.Nazwa);
                 licznik++;
             }
             Console.Write("Wybierz bron: ");
             string odczyt = Console.ReadLine();
             int opcja = int.Parse(odczyt);
 
-            Bron wybranaBron = _bronie[opcja - 1];
-            _bohater.KupBron(wybranaBron);
+            if(opcja <= _bronie.Count)
+            {
+                IBron wybranaBron = _bronie[opcja - 1];
+                _bohater.KupBron(wybranaBron);
+            }else
+            {
+                opcja -= _bronie.Count;
+                Zbroja wybranaZbroja = _zbroje[opcja - 1];
+                if(wybranaZbroja is Tarcza)
+                {
+                    _bohater.NoszonaTarcza = wybranaZbroja as Tarcza;
+                }else
+                {
+                    _bohater.NoszonyNapiersnik = (Napiersnik)wybranaZbroja;
+                }
+            }
+
+            
         }
         
-        static void PetlaFor()
-        {
-            for(int krok = 1; krok <= 10; krok++)
-            {
-                Console.WriteLine("krok " + krok);
-            }
-            Console.ReadLine();
-            Console.Clear();
-        }
     }
 }

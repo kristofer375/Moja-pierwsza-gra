@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Moja_pierwsza_gra
 {
-    public class Bron : IBron
+    public class BronDwureczna : IBron
     {
         public string Nazwa { get; set; }
         public int Cena { get; set; }
@@ -15,11 +15,11 @@ namespace Moja_pierwsza_gra
         {
             get
             {
-                return true;
+                return false;
             }
         }
 
-        public Bron(string nazwa, int cena, int modyfikatorObrazen)
+        public BronDwureczna(string nazwa, int cena, int modyfikatorObrazen)
         {
             Nazwa = nazwa;
             Cena = cena;
@@ -27,7 +27,7 @@ namespace Moja_pierwsza_gra
         }
         public int ObliczObrazenia()
         {
-            return ModyfikatorObrazen;
+            return ModyfikatorObrazen * 2;
         }
     }
 }

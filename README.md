@@ -18,3 +18,6 @@ Klasa i objekty
 
 **Lekcja 5**
 Lista obiektów i pętla
+
+**Lekcja 6**
+OOP
