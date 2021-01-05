@@ -12,3 +12,6 @@ Metody
 
 **Lekcja 3**
 Pętle
+
+**Lekcja 4**
+Klasa i objekty

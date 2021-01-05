@@ -8,16 +8,12 @@ namespace Moja_pierwsza_gra
 {
     class Program
     {
-        private static string nazwaPostaci;
-        private static int maksymalneZycie;
-        private static int pozostaleZycie;
-        private static int lvl;
+        private static Bohater _bohater;
         static void Main(string[] args)
         {
-            nazwaPostaci = " ";
-            int liczba = DajWieksza(5, 7);
-            PetlaFor();
-            Console.WriteLine(liczba);
+            //int liczba = dajwieksza(5, 7);
+            //petlafor();
+            //console.writeline(liczba);
             ObsługaMenu();
             Console.ReadLine();
         }
@@ -48,15 +44,17 @@ namespace Moja_pierwsza_gra
                 MenuGry();
                 opcja = Console.ReadLine();
                 if (opcja == "0")
-                    ZobaczPostac();
+                    _bohater.ZobaczPostac();
                 else if (opcja == "1")
                     IdzNaWyprawe();
                 else if (opcja == "2")
-                    Odpocznij();
+                    _bohater.Odpocznij();
                 else if (opcja == "3")
                     Console.WriteLine("Chwilowo niedostępne");
                 else if (opcja == "4")
                     Console.WriteLine("Chwilowo niedostępne");
+                _bohater.Przegrana();
+                Console.WriteLine();
                 Console.Write("Naciśnij enter");
                 Console.ReadLine();
             }
@@ -72,6 +70,7 @@ namespace Moja_pierwsza_gra
             Console.WriteLine("3 Ekwipunek");
             Console.WriteLine("4 Sklep");
             Console.WriteLine("5 Koniec");
+            
         }
 
         static int DajWieksza(int liczba1, int liczba2)
@@ -85,15 +84,7 @@ namespace Moja_pierwsza_gra
         {
             Console.Clear();
             Console.Write("Podaj imię postaci: ");
-            nazwaPostaci = Console.ReadLine();
-            lvl = 1;
-            maksymalneZycie = pozostaleZycie = 10;
-        }
-        static void ZobaczPostac()
-        {
-            Console.Clear();
-            Console.WriteLine(nazwaPostaci + " lvl: " + lvl);
-            Console.WriteLine("Życie: " + pozostaleZycie + "/" + maksymalneZycie);
+            _bohater = new Bohater(Console.ReadLine());
         }
 
         static void IdzNaWyprawe()
@@ -105,7 +96,7 @@ namespace Moja_pierwsza_gra
                 BonusZaZwyciestwo();
                 return;
             }
-            Przegrana();
+            
 
         }
         static bool Walka()
@@ -113,14 +104,14 @@ namespace Moja_pierwsza_gra
             Random losuj = new Random();
             int zyciePrzeciwnika = losuj.Next(8,12);
 
-            while (pozostaleZycie > 0)
+            while (_bohater.PosiadaneZycie > 0)
             {
                 int obrazeniaZadane = losuj.Next(2, 3);
                 zyciePrzeciwnika -= obrazeniaZadane;
                 if (zyciePrzeciwnika <= 0)
                     return true;
                 int obrazeniaOtrzymane = losuj.Next(0, 4);
-                pozostaleZycie -= obrazeniaOtrzymane;
+                _bohater.PosiadaneZycie -= obrazeniaOtrzymane;
             }
             return false;
         }
@@ -128,18 +119,7 @@ namespace Moja_pierwsza_gra
         {
 
         }
-        static void Przegrana()
-        {
-            pozostaleZycie = 1;
-            Console.WriteLine("Przegrałeś, ale uciekłeś");
-        }
-        static void Odpocznij()
-        {
-            Console.WriteLine("Przysiadasz aby odpocząć");
-            pozostaleZycie++;
-            if (maksymalneZycie < pozostaleZycie)
-                pozostaleZycie = maksymalneZycie;
-        }
+        
         static void PetlaFor()
         {
             for(int krok = 1; krok <= 10; krok++)
