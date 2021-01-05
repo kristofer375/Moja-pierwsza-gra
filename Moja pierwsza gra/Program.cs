@@ -8,44 +8,92 @@ namespace Moja_pierwsza_gra
 {
     class Program
     {
+        private static string nazwaPostaci;
+        private static int maksymalneZycie;
+        private static int pozostaleZycie;
         static void Main(string[] args)
         {
-            string liczba1 = Console.ReadLine();
-            string liczba2 = Console.ReadLine();
-            int odczytanaLiczba1 = int.Parse(liczba1);
-            int odczytanaLiczba2 = int.Parse(liczba2);
-            if(odczytanaLiczba1 < odczytanaLiczba2)
+            nazwaPostaci = " ";
+            int liczba = DajWieksza(5, 7);
+            Console.WriteLine(liczba);
+            ObsługaMenu();
+            Console.ReadLine();
+        }
+
+        static void ObsługaMenu()
+        {
+            Console.WriteLine("1. Nowa gra");
+            Console.WriteLine("2. Wczytaj grę");
+            Console.WriteLine("3. Koniec");
+
+            string opcja = Console.ReadLine();
+            if (opcja == "1")
             {
-                Console.WriteLine("Druga liczba jest większa");
-            } else if(odczytanaLiczba1 == odczytanaLiczba2)
-            {
-                Console.WriteLine("Liczby są równe");
-            } else
-            {
-                Console.WriteLine("Pierwsza liczba jest większa");
+                StworzPostac();
             }
-            Console.ReadKey();
+            else if (opcja == "2")
+            {
 
-            //string nazwaPostaci;
-            //Console.WriteLine("1. Nowa gra");
-            //Console.WriteLine("2. Wczytaj grę");
-            //Console.WriteLine("3. Koniec");
+            }
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Dzięki za grę");
+                return;
+            }
+            MenuGry();
+        }
 
-            //string opcja = Console.ReadLine();
-            //if(opcja == "1")
-            //{
-            //    Console.Clear();
-            //    Console.Write("Podaj imię postaci: ");
-            //    nazwaPostaci = Console.ReadLine();
-            //} else if(opcja == "2")
-            //{
+        static void MenuGry()
+        {
+            Console.Clear();
+            Console.WriteLine("1 Idź na wyprawę");
+            Console.WriteLine("2 Odpocznij");
+            Console.WriteLine("3 Ekwipunek");
+            Console.WriteLine("4 Sklep");
+            Console.WriteLine("5 Koniec");
 
-            //} else
-            //{
-            //    Console.Clear();
-            //    Console.WriteLine("Dzięki za grę");
-            //}
-            //Console.ReadLine();
+
+        }
+
+        static int DajWieksza(int liczba1, int liczba2)
+        {
+            if (liczba1 < liczba2)
+                return liczba2;
+            return liczba1;
+        }
+
+        static void StworzPostac()
+        {
+            Console.Clear();
+            Console.Write("Podaj imię postaci: ");
+            nazwaPostaci = Console.ReadLine();
+        }
+
+        static void idzNaWyprawe()
+        {
+            Console.Clear();
+            Console.WriteLine("Wyruszyłeś na wyprawę");
+            if(Walka())
+            {
+                BonusZaZwyciestwo();
+            }
+        }
+        static bool Walka()
+        {
+            if(pozostaleZycie <= 0)
+            {
+                return false;
+            }
+            return true;
+        }
+        static void BonusZaZwyciestwo()
+        {
+
+        }
+        static void Przegrana()
+        {
+            pozostaleZycie = 1;
         }
     }
 }

@@ -6,3 +6,6 @@ Pierwsze wyświetlenie tekstu w konsoli
 
 **Lekcja 1**
 Zmienne i wartości warunkowe
+
+**Lekcja 2**
+Metody
