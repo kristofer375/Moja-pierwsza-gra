@@ -9,3 +9,6 @@ Zmienne i wartości warunkowe
 
 **Lekcja 2**
 Metody
+
+**Lekcja 3**
+Pętle
